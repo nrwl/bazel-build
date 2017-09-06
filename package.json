@@ -1,9 +1,9 @@
 {
   "name": "@nrwl/bazel",
-  "version": "0.0.1",
+  "version": "0.0.1+c992a7e",
   "description": "Angular Extensions: Schematics",
   "main": "src/index.js",
-  "peerDependencies" :{
+  "peerDependencies": {
     "@nrwl/schematics": "0.0.1"
   },
   "author": "Victor Savkin",
