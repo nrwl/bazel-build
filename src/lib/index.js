@@ -14,11 +14,7 @@ var schematics_2 = require("@nrwl/schematics");
 function addLibToAngularCliJson(fullPath, schema) {
     return function (host) {
         var source = JSON.parse(host.read('.angular-cli.json').toString('utf-8'));
-        source.apps.push({
-            name: schema.name,
-            root: fullPath,
-            appDir: false
-        });
+        source.apps.push({ name: schema.name, root: fullPath, appDir: false });
         host.overwrite('.angular-cli.json', JSON.stringify(source, null, 2));
         return host;
     };
