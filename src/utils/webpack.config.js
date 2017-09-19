@@ -15,9 +15,8 @@ const entryPoints = ["inline", "polyfills", "styles", "vendor", "main"];
 const baseHref = "";
 
 module.exports = function(env) {
-  const name = path.parse(env.package).name;
   const apps = JSON.parse(fs.readFileSync(path.join(process.cwd(), '.angular-cli.json'), 'UTF-8')).apps;
-  const appConfig = apps.filter(a => a.name === name)[0];
+  const appConfig = apps.filter(a => a.root.indexOf(env.package) > -1)[0];
   const binDir = env.bin_dir.startsWith('/') ? env.bin_dir : path.join(process.cwd(), env.bin_dir);
   const out = path.join(binDir, env.package, 'bundles');
   const src = path.join(binDir, appConfig.root);
@@ -27,11 +26,13 @@ module.exports = function(env) {
     return acc;
   }, {});
 
+  const root = path.join(binDir, '..', '..', '..');
+
   // victor todo: remove it when ng_module rule is fixed
   const alias = Object.assign({}, aliasesForApps, {
-    '@angular/core/core': '@angular/core/@angular/core.es5',
-    '@angular/common/common': '@angular/common/@angular/common.es5',
-    '@angular/platform-browser/platform-browser': '@angular/platform-browser/@angular/platform-browser.es5'
+    'node_modules/@angular/core/index': '@angular/core/bundles/core.umd',
+    'node_modules/@angular/common/index': `@angular/common/bundles/common.umd`,
+    'node_modules/@angular/platform-browser/index': '@angular/platform-browser/bundles/platform-browser.umd'
   });
 
   return {
@@ -40,7 +41,8 @@ module.exports = function(env) {
         ".js"
       ],
       "modules": [
-        "./node_modules"
+        binDir,
+        `./node_modules`,
       ],
       "symlinks": true,
       alias
