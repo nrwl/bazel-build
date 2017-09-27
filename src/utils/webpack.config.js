@@ -68,6 +68,7 @@ module.exports = function(env) {
       "chunkFilename": "[id].chunk.js"
     },
     "module": {
+      "exprContextCritical": false,
       "rules": [
         {
           "enforce": "pre",
@@ -190,6 +191,9 @@ module.exports = function(env) {
         "aggregateTimeout": 3000,
         "poll": 1000
       }
+    },
+    "stats": {
+      "colors": true
     }
   };
 };
