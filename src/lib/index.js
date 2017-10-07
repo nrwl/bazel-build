@@ -22,8 +22,6 @@ function addLibToAngularCliJson(fullPath, schema) {
 function default_1(options) {
     var fullPath = path.join(options.directory, schematics_2.toFileName(options.name), options.sourceDir);
     var templateSource = schematics_1.apply(schematics_1.url('./files'), [schematics_1.template(__assign({}, options, schematics_2.names(options.name), { dot: '.', tmpl: '' }))]);
-    return schematics_1.chain([
-        schematics_1.branchAndMerge(schematics_1.chain([schematics_1.mergeWith(templateSource), addLibToAngularCliJson(fullPath, options)])),
-    ]);
+    return schematics_1.chain([schematics_1.branchAndMerge(schematics_1.chain([schematics_1.mergeWith(templateSource), addLibToAngularCliJson(fullPath, options)]))]);
 }
 exports.default = default_1;

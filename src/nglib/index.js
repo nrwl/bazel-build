@@ -14,7 +14,12 @@ var schematics_2 = require("@nrwl/schematics");
 function addLibToAngularCliJson(fullPath, schema) {
     return function (host) {
         var source = JSON.parse(host.read('.angular-cli.json').toString('utf-8'));
-        source.apps.push({ name: schema.name, root: fullPath, appDir: false, prefix: schema.prefix ? schema.prefix : schema.name });
+        source.apps.push({
+            name: schema.name,
+            root: fullPath,
+            appDir: false,
+            prefix: schema.prefix ? schema.prefix : schema.name
+        });
         host.overwrite('.angular-cli.json', JSON.stringify(source, null, 2));
         return host;
     };
@@ -22,8 +27,6 @@ function addLibToAngularCliJson(fullPath, schema) {
 function default_1(options) {
     var fullPath = path.join(options.directory, schematics_2.toFileName(options.name), options.sourceDir);
     var templateSource = schematics_1.apply(schematics_1.url('./files'), [schematics_1.template(__assign({}, options, schematics_2.names(options.name), { dot: '.', tmpl: '' }))]);
-    return schematics_1.chain([
-        schematics_1.branchAndMerge(schematics_1.chain([schematics_1.mergeWith(templateSource), addLibToAngularCliJson(fullPath, options)])),
-    ]);
+    return schematics_1.chain([schematics_1.branchAndMerge(schematics_1.chain([schematics_1.mergeWith(templateSource), addLibToAngularCliJson(fullPath, options)]))]);
 }
 exports.default = default_1;

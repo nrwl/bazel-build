@@ -38,7 +38,10 @@ function addAppToAngularCliJson(fullPath, options) {
             styles: ['styles.css'],
             scripts: [],
             environmentSource: 'environments/environment.ts',
-            environments: { 'dev': 'environments/environment.ts', 'prod': 'environments/environment.prod.ts' }
+            environments: {
+                dev: 'environments/environment.ts',
+                prod: 'environments/environment.prod.ts'
+            }
         });
         host.overwrite('.angular-cli.json', JSON.stringify(config, null, 2));
         return host;
@@ -47,14 +50,14 @@ function addAppToAngularCliJson(fullPath, options) {
 function default_1(options) {
     var fullPath = path.join(options.directory, schematics_2.toFileName(options.name), options.sourceDir);
     return schematics_1.chain([
-        schematics_1.mergeWith(schematics_1.apply(schematics_1.url('./files'), [schematics_1.template(__assign({}, options, schematics_2.names(options.name), { 'dot': '.', 'tmpl': '' }))])),
+        schematics_1.mergeWith(schematics_1.apply(schematics_1.url('./files'), [schematics_1.template(__assign({}, options, schematics_2.names(options.name), { dot: '.', tmpl: '' }))])),
         schematics_1.externalSchematic('@schematics/angular', 'module', {
             name: 'app',
             commonModule: false,
             flat: true,
             routing: options.routing,
             sourceDir: fullPath,
-            spec: false,
+            spec: false
         }),
         schematics_1.externalSchematic('@schematics/angular', 'component', {
             name: 'app',
@@ -68,7 +71,8 @@ function default_1(options) {
             viewEncapsulation: options.viewEncapsulation,
             changeDetection: options.changeDetection
         }),
-        addBootstrap(fullPath), addAppToAngularCliJson(fullPath, options)
+        addBootstrap(fullPath),
+        addAppToAngularCliJson(fullPath, options)
     ]);
 }
 exports.default = default_1;
