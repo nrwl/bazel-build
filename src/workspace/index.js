@@ -12,7 +12,7 @@ var schematics_1 = require("@angular-devkit/schematics");
 var schematics_2 = require("@nrwl/schematics");
 function default_1(options) {
     return schematics_1.chain([
-        schematics_1.mergeWith(schematics_1.apply(schematics_1.url('./files'), [schematics_1.template(__assign({}, options, schematics_2.names(options.name), { dot: '.', tmpl: '' })), schematics_1.move(options.name)]))
+        schematics_1.mergeWith(schematics_1.apply(schematics_1.url('./files'), [schematics_1.template(__assign({}, options, schematics_2.names(options.name), { dot: '.', tmpl: '' })), schematics_1.move((options.name))]))
     ]);
 }
 exports.default = default_1;
